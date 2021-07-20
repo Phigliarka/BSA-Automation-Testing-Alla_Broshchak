@@ -3,9 +3,11 @@ const rundomNumber = () => Date.now();
 
 const  {Login} = require('../src/pages');
 const  {DocProfile} = require('../src/pages');
+const  {EditUser} = require('../src/pages');
 
 const logIn = new Login();
 const docProfile = new DocProfile();
+const editUser = new EditUser();
 
 
 describe('Edit Profile', function () {
@@ -27,43 +29,25 @@ describe('Edit Profile', function () {
         });
 
         await docProfile.DoctorProfile.goToMyProfilePage();
-  
-            
-        
-        
-        const NameField = await $('input[placeholder="Name"]');
-        const SurnameField = await $('input[placeholder="Surname"]');
-        const ButtonEditProfile = await $("//form[@class='styles_editForm__1rOFS']/div/button[contains(text(), 'Edit')]");
 
-    
-                   
-
-        
-
-        const fName = `Frodo${rundomNumber()}`;
-        const lName = `Beggins${rundomNumber()}`;
-
-
-        await NameField.waitForDisplayed({ timeout: 5000 });
-        await NameField.setValue(fName);
-
-        await SurnameField.waitForDisplayed({ timeout: 5000 });
-        await SurnameField.setValue(lName);
-
-        await ButtonEditProfile.waitForDisplayed({ timeout: 5000 });
-        await ButtonEditProfile.click();
-
-
+        await editUser.EditUserPage.EditUserData({
+            name: `Frodo${rundomNumber()}`,
+            surName: `Beggins${rundomNumber()}`
+        });
 
         await browser.pause(5000);
 
+
+
+         
+
         const NexDataName = await $("//div[@class='styles_mainUserInfo__3FD2X']/span[@class='styles_name__2vTNE']");
         const NewText = await NexDataName.getText();
-        expect(NewText).to.equal(fName+ " "+lName);
+        expect(NewText).to.equal(this.editUser.name);
 
         
 
-        await browser.reloadSession();      
+        
 
 
 

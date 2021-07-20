@@ -1,7 +1,8 @@
 const { AuthPage } = require('./auth.page');
 const { doctorProfilePage } = require('./DoctorProfile.page');
 const {LoginPage} = require('./Login.page');
-const {DoctorProfile} = require('./Login.page');
+const {EditUserPage} = require('./EditUser.page');
+
 
 class App {
   constructor() {
@@ -18,11 +19,17 @@ class DocProfile{
     this.DoctorProfile = new doctorProfilePage();
   }
 }
+class EditUser{
+  constructor(){
+    this.EditUserPage = new EditUserPage();
+  }
+}
 
 
 module.exports = { 
   App, 
   Login,
-  DocProfile 
+  DocProfile,
+  EditUser 
 };
 
