@@ -15,6 +15,11 @@ describe('Edit Profile', function () {
     beforeEach(async function () {
         await browser.setWindowSize(1440, 960);
         await browser.url('/sign-in');
+
+        await logIn.LoginPage.LogIn({
+            email: 'marcus1@gmail.com',
+            password: 'Pa55word',
+        });
     });
 
     afterEach(async function () {
@@ -23,12 +28,9 @@ describe('Edit Profile', function () {
 
     it('should be able to edit user profile', async function () {
 
-        await logIn.LoginPage.LogIn({
-            email: 'marcus1@gmail.com',
-            password: 'Pa55word',
-        });
+        
 
-        await docProfile.DoctorProfile.goToMyProfilePage();
+        await docProfile.DoctorProfile.goToEditUserPage();
 
         const fName = `Frodo${rundomNumber()}`;
         const lName = `Beggins${rundomNumber()}`;
@@ -46,30 +48,24 @@ describe('Edit Profile', function () {
 
     });
 
-    xit('should be able to edit to change clinic and spesialty in user profile', async function () {
+    it('should be able to change clinic and spesialty in user profile', async function () {
   
+        await docProfile.DoctorProfile.goToMyProfilePage();
+
+        await docProfile.DoctorProfile.EditSpecialityAndClinic({
+            clinic: 'Cleveland Clinic',
+            speciality: 'Surgeon'            
+        } )
+    
+
+         
+        const mySpecialty = $('div[id="react-select-8-option-3"]');
+        expect(mySpecialty).to.be.eql('dentist');
+    
+        const myClinic = $('div[id="react-select-9-option-1"]');
+        expect(myClinic).to.be.eql('UCSF Medical Center');
+
         
-    
-        const userEmailField = await $('input[name="email"]');
-        const passwordField = await $('input[name="password"]');
-        const signInButton = await $('button');
-        const LinkMyProfile = await $("//div[@class='header_pagesSection__2Rgck']/a[contains(text(), 'My Profile')]");
-        const spesialty = await $("//form[@class='styles_selectFormWrapper__vOryy']//div[@class='selectStyles css-2b097c-container']/div[@class='selectStyles__control css-6h7vey-control']");
-        const clinic = await $("//form[@class='styles_selectFormWrapper__1UXSB']//div[@class='selectStyles css-2b097c-container']/div[@class='selectStyles__control css-6h7vey-control']")
-
-    
-        await userEmailField.waitForDisplayed({ timeout: 5000 });
-        await userEmailField.setValue(`marcus1@gmail.com`);
-    
-        await passwordField.waitForDisplayed({ timeout: 5000 });
-        await passwordField.setValue('Pa55word');
-    
-        await signInButton.waitForDisplayed({ timeout: 5000 });
-        await signInButton.click();
-           
-
-        await LinkMyProfile.waitForDisplayed({ timeout: 5000 });
-        await LinkMyProfile.click();
 
     });
 

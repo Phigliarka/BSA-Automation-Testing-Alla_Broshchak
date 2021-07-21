@@ -16,11 +16,6 @@ class EditUserPage {
                 
     }   
     
-
-    // async returnNameAndSurname(){
-    //     return this.EditUserData.name+" "+this.EditUserData.surName;
-    // }
-
     
 
 }
