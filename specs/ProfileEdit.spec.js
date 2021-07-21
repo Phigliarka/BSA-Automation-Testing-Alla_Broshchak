@@ -30,27 +30,19 @@ describe('Edit Profile', function () {
 
         await docProfile.DoctorProfile.goToMyProfilePage();
 
+        const fName = `Frodo${rundomNumber()}`;
+        const lName = `Beggins${rundomNumber()}`;
+
         await editUser.EditUserPage.EditUserData({
-            name: `Frodo${rundomNumber()}`,
-            surName: `Beggins${rundomNumber()}`
-        });
-
+            name: fName,
+            surName: lName
+        })
+                        
         await browser.pause(5000);
-
-
-
-         
 
         const NexDataName = await $("//div[@class='styles_mainUserInfo__3FD2X']/span[@class='styles_name__2vTNE']");
         const NewText = await NexDataName.getText();
-        expect(NewText).to.equal(this.editUser.name);
-
-        
-
-        
-
-
-
+        expect(NewText).to.equal(fName+ " "+lName);
 
     });
 
